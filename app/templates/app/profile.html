@@ -1,0 +1,328 @@
+{% extends "app/base1.html" %}
+{% block content %}
+
+    <!-- Start home -->
+    <section class="bg-half page-next-level"> 
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="text-center text-white">
+                        <h4 class="text-uppercase title mb-4">Candidate Profile</h4>
+                        <ul class="page-next d-inline-block mb-0">
+                            <li><a href="index.html" class="text-uppercase font-weight-bold">Home</a></li>
+                            <li>
+                                <span class="text-uppercase text-white font-weight-bold">Candidate Profile</span> 
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+
+    <!-- POST A JOB START -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="rounded shadow bg-white p-4">
+                        <div class="custom-form">
+                            <div id="message3"></div>
+                            <form method="POST" action="{% url 'updateprofile' pk=request.session.id %}" name="contact-form" id="contact-form3" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <h4 class="text-dark mb-3">Update Your Profile :</h4>
+                                <!-- <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Title</label>
+                                            <input id="company-name" type="text" class="form-control resume" placeholder="">
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">First Name</label>
+                                            <input id="firstname" name="firstname" type="text" class="form-control resume" placeholder="" value="{{cand.firstname}}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Last Name</label>
+                                            <input id="lastname" name="lastname" type="text" class="form-control resume" placeholder="" value="{{cand.lastname}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Type</label>
+                                            <div class="form-button">
+                                                <!-- <select class="nice-select rounded" name="job_type" value="{{cand.job_type}}" >
+                                                    <option data-display="Job Type">Job Type</option>
+                                                    <option value="1">Full Time</option>
+                                                    <option value="2">Part Time</option>
+                                                </select> -->                                
+                                                <select class="nice-select rounded" name="job_type">
+                                                    {% for key, value in dict_job_type.items %}
+                                                        {% if key == value %}
+                                                        <option data-display="{{ key }}"{% if key == cand.job_type %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% else %}
+                                                        <option value="{{ key }}"{% if key == cand.job_type %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Category</label>
+                                            <div class="form-button">
+                                                <!-- <select class="nice-select rounded" name="jobcategory" value="{{cand.jobcategory}}" >
+                                                    <option data-display="Category">Category</option>
+                                                    <option value="1">Web Developer</option>
+                                                    <option value="2">PHP Developer</option>
+                                                    <option value="3">Web Designer</option>
+                                                    <option value="4">Graphic Designer</option>
+                                                </select> -->
+                                                <select class="nice-select rounded" name="jobcategory">
+                                                    {% for key, value in dict_jobcategory.items %}
+                                                        {% if key == value %}
+                                                        <option data-display="{{ key }}"{% if key == cand.jobcategory %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% else %}
+                                                        <option value="{{ key }}"{% if key == cand.jobcategory %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">City</label>
+                                            <input id="city" type="text" class="form-control resume" placeholder="" name="city"  value="{{cand.city}}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">State</label>
+                                            <input id="state" type="text" class="form-control resume" placeholder="" name="state" value="{{cand.state}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Minimum Salary</label>
+                                            <input id="minimum-salary" type="text" class="form-control resume" placeholder="$8000" name="min_salary"  value="{{cand.min_salary}}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Maximum Salary</label>
+                                            <input id="maximum-salary" type="text" class="form-control resume" placeholder="$20000" name="max_salary" value="{{cand.max_salary}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Education Level</label>
+                                            <div class="form-button">
+                                                <!-- <select class="nice-select rounded" name="highestedu" value="{{cand.highestedu}}" >
+                                                    <option data-display="Level">Level</option>
+                                                    <option value="1">Level-1</option>
+                                                    <option value="2">Level-2</option>
+                                                    <option value="3">Level-3</option>
+                                                    <option value="4">Level-4</option>
+                                                </select> -->
+                                                <select class="nice-select rounded" name="highestedu">
+                                                    {% for key, value in dict_level.items %}
+                                                        {% if key == value %}
+                                                        <option data-display="{{ key }}"{% if key == cand.highestedu %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% else %}
+                                                        <option value="{{ key }}"{% if key == cand.highestedu %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Year of Experience</label>
+                                            <div class="form-button">
+                                                <!-- <select class="nice-select rounded" name="experience"  value="{{cand.experience}}" >
+                                                    <option data-display="Experience">Experience</option>
+                                                    <option value="1">1 Year</option>
+                                                    <option value="2">2 Year</option>
+                                                    <option value="3">3 Year</option>
+                                                </select> -->
+                                                <select class="nice-select rounded" name="experience">
+                                                    {% for key, value in dict_experience.items %}
+                                                        {% if key == value %}
+                                                        <option data-display="{{ key }}"{% if key == cand.experience %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% else %}
+                                                        <option value="{{ key }}"{% if key == cand.experience %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Website</label>
+                                            <input id="url" type="url" class="form-control resume" placeholder=""  name="website"  value="{{cand.website}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Email Address</label>
+                                            <input id="email-address" type="text" class="form-control resume" placeholder="" value="{{user.email}}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Phone Number</label>
+                                            <input id="number" type="text" class="form-control resume" placeholder="" name="contact" value="{{cand.contact}}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Gender</label>
+                                            <div class="form-button">
+                                                <!-- <select class="nice-select rounded" name="gender" value="{{cand.gender}}" > 
+                                                    <option data-display="Gender">Gender</option>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                </select> -->
+                                                <select class="nice-select rounded" name="gender">
+                                                    {% for key, value in dict_gender.items %}
+                                                        {% if key == value %}
+                                                        <option data-display="{{ key }}"{% if key == cand.gender %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% else %}
+                                                        <option value="{{ key }}"{% if key == cand.gender %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Shift</label>
+                                            <div class="form-button">
+                                                <select class="nice-select rounded" name="shift" value="{{cand.shift}}" >
+                                                    <option data-display="Shift">Shift</option>
+                                                    <option value="1">Morning</option>
+                                                    <option value="2">Evening</option>
+                                                </select>
+                                                <select class="nice-select rounded" name="shift">
+                                                    {% for key, value in dict_shift.items %}
+                                                        {% if key == value %}
+                                                        <option data-display="{{ key }}"{% if key == cand.shift %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% else %}
+                                                        <option value="{{ key }}"{% if key == cand.shift %} selected="selected"{% endif %}>{{ value }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Description</label>
+                                            <textarea id="description" rows="6" class="form-control resume" placeholder="" name="jobdescription">{{cand.jobdescription}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <div class="input-group mt-2 mb-2">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="profile_pic">
+                                                        <label class="custom-file-label rounded"><i class="mdi mdi-cloud-upload mr-1"></i> Upload Files</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-inline-item">
+                                                <h6 class="text-muted mb-0">Upload Images Or Documents.</h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 mt-2">
+                                        <!-- <a href="#" class="btn btn-primary">Post a Job</a> -->
+                                        <input type="submit" class="btn btn-primary" value="Update">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- POST A JOB END -->
+
+    <!-- subscribe start -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="float-left position-relative notification-icon mr-2">
+                        <i class="mdi mdi-bell-outline text-primary"></i>
+                        <span class="badge badge-pill badge-danger">1</span>
+                    </div>
+                    <h5 class="mt-2 mb-0">Your Job Notification</h5>
+                </div>
+                <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
+                    <form>
+                        <div class="form-group mb-0">
+                            <div class="input-group mb-0">
+                                <input name="email" id="email" type="email" class="form-control" placeholder="Your email :" required="" aria-describedby="newssubscribebtn">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary submitBnt" type="submit" id="newssubscribebtn">Subscribe</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- subscribe end -->
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "app/company/base1.html" %}
+{% block content %}
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Company Profile</h3></div>
+                            <div class="card-body">
+                                <form method="POST" action="{% url 'updatecompanyprofile' pk=request.session.id %}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" id="firstname" type="text" placeholder="Enter your first name" name="firstname" value="{{comp.firstname}}" />
+                                                <label for="firstname">First name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="lastname" type="text" placeholder="Enter your last name" name="lastname" value="{{comp.lastname}}"  />
+                                                <label for="lastname">Last name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="email" type="email" placeholder="name@example.com" name="email" value="{{user.email}}" />
+                                        <label for="email">Email address</label>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" id="state" type="text" placeholder="Enter state" name="state" value="{{comp.state}}" />
+                                                <label for="state">State</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3 mb-md-0">
+                                                <input class="form-control" id="city" type="text" placeholder="Enter city" name="city" value="{{comp.city}}"  />
+                                                <label for="city">City</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="company_name" type="text" placeholder="Enter company name" name="company_name"  value="{{comp.company_name}}"  />
+                                        <label for="company_name">Company Name</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="contact" type="text" placeholder="Enter contact" name="contact"  value="{{comp.contact}}"  />
+                                        <label for="contact">Company Contact</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="website" type="url" placeholder="Enter website" name="website"  value="{{comp.website}}"  />
+                                        <label for="website">Company Website</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea id="address" rows="10" class="form-control resume" placeholder="" name="address">{{comp.address}}</textarea>
+                                        <label for="address">Company Address</label>
+                                     </div>
+                                     <div class="form-floating mb-3">
+                                        <textarea id="description" rows="10" class="form-control resume" placeholder="" name="description">{{comp.description}}</textarea>
+                                        <label for="description">Company Description</label>
+                                     </div>
+                                     <div class="form-floating mb-3">
+                                        <input type="file" class="form-control resume1" id="logo_pic" name="logo_pic">
+                                        <!-- <label for="logo_pic">Upload Files</label> -->
+                                     </div>
+
+                                    <div class="mt-4 mb-0">
+                                        <input type="submit" class="btn btn-primary" value="Update">
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <div class="card-footer text-center py-3">
+                                <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

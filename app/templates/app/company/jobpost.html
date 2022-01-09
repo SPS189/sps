@@ -1,0 +1,88 @@
+{% extends "app/company/base1.html" %}
+{% block content %}
+
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Job Post Form</h3></div>
+                            <div class="text-center">
+                                {% if msg %}
+                                    <br>
+                                    <h5 class="text-success">{{msg}}</h5>
+                                {% endif %}  
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="{% url 'jobpost' %}">
+                                    {% csrf_token %}
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="jobname" type="text" placeholder="Enter job name" name="jobname" />
+                                        <label for="jobname">Job Name</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="companyname" type="text" placeholder="Enter company name" name="companyname"  />
+                                        <label for="companyname">Company Name</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea id="companyaddress" rows="10" class="form-control resume" placeholder="" name="companyaddress"></textarea>
+                                        <label for="companyaddress">Company Address</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="companycontact" type="text" placeholder="Enter contact" name="companycontact" />
+                                        <label for="companycontact">Company Contact</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="companyemail" type="email" name="companyemail" placeholder="name@example.com" />
+                                        <label for="companyemail">Company Email address</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="companywebsite" type="url" placeholder="Enter website" name="companywebsite"   />
+                                        <label for="companywebsite">Company Website</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea id="jobdescription" rows="10" class="form-control resume" placeholder="" name="jobdescription"></textarea>
+                                        <label for="jobdescription">Job Description</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="qualification" type="text" placeholder="Enter qualification" name="qualification"  />
+                                        <label for="qualification">Qualification</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="responsibilies" type="text" placeholder="Enter responsibilies" name="responsibilies"   />
+                                        <label for="responsibilies">Responsibilies</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="location" type="text" placeholder="Enter Location" name="location"   />
+                                        <label for="location">Location</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="salarypackage" type="text" placeholder="Enter salary package" name="salarypackage"  />
+                                        <label for="salarypackage">Salary Package</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="experience" type="text" placeholder="Enter experience" name="experience"  />
+                                        <label for="experience">Experience</label>
+                                    </div>
+                                      
+
+                                    <div class="mt-4 mb-0">
+                                        <input type="submit" class="btn btn-primary" value="Post">
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <div class="card-footer text-center py-3">
+                                <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}
